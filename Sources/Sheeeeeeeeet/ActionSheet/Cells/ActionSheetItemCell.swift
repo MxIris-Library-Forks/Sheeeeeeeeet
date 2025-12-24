@@ -61,7 +61,17 @@ open class ActionSheetItemCell: UITableViewCell {
     @objc public dynamic var disabledSubtitleColor: UIColor?
     @objc public dynamic var disabledTintColor: UIColor?
 
-    @objc public dynamic var itemHoverStyle: UIHoverStyle?
+    private var _itemHoverStyle: NSObject?
+    
+    @available(iOS 17.0, *)
+    @objc public dynamic var itemHoverStyle: UIHoverStyle? {
+        set {
+            _itemHoverStyle = newValue
+        }
+        get {
+            _itemHoverStyle as? UIHoverStyle
+        }
+    }
     // MARK: - Private Properties
 
     public private(set) weak var item: MenuItem?
@@ -85,7 +95,9 @@ open class ActionSheetItemCell: UITableViewCell {
         detailTextLabel?.text = item.subtitle
         detailTextLabel?.textColor = item.isEnabled ? subtitleColor : disabledSubtitleColor
         detailTextLabel?.textAlignment = itemTextAlignment
-        hoverStyle = itemHoverStyle
+        if #available(iOS 17.0, *) {
+            hoverStyle = itemHoverStyle
+        }
     }
 
     func refresh(with item: MenuItem) {
