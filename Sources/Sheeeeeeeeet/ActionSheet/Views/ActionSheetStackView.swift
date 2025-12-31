@@ -29,9 +29,9 @@ open class ActionSheetStackView: UIStackView {
         translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(self)
         sheet.topMargin = setupTopMargin(in: view, isInPopover: isInPopover)
-        sheet.leftMargin = leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0)
-        sheet.rightMargin = view.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0)
-        sheet.bottomMargin = view.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0)
+        sheet.leftMargin = leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 0)
+        sheet.rightMargin = view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0)
+        sheet.bottomMargin = view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0)
         NSLayoutConstraint.activate([
             sheet.topMargin,
             sheet.leftMargin,
@@ -42,7 +42,7 @@ open class ActionSheetStackView: UIStackView {
     
     private func setupTopMargin(in view: UIView, isInPopover: Bool) -> NSLayoutConstraint {
         isInPopover ?
-            topAnchor.constraint(equalTo: view.topAnchor, constant: 0) :
-            topAnchor.constraint(greaterThanOrEqualTo: view.topAnchor, constant: 0)
+            topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0) :
+            topAnchor.constraint(greaterThanOrEqualTo: view.safeAreaLayoutGuide.topAnchor, constant: 0)
     }
 }
